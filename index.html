@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 HAPPY BIRTHDAY OLIVIA! 🎮</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #1a0a1a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .logo {
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.5rem;
+            color: #ff69b4;
+            text-shadow: 0 0 20px #ff69b4;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 105, 180, 0.1);
+            border: 2px solid #ff69b4;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+        }
+
+        .header h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2rem;
+            color: #ff69b4;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #ff69b4;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #ddd;
+        }
+
+        .avatar-video {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            border: 6px solid #ff69b4;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 0 35px rgba(255, 105, 180, 0.7);
+            object-fit: cover;
+        }
+
+        .section {
+            margin: 60px 0;
+            padding: 30px;
+            background: rgba(255, 105, 180, 0.08);
+            border-radius: 15px;
+            border: 1px solid #ff1493;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 10px #ff69b4;
+        }
+
+        .typewriter {
+            font-size: 1.2rem;
+            min-height: 80px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-right: 3px solid #ff69b4;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: #ff69b4; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            perspective: 1000px;
+            height: 200px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            border: 2px solid #ff69b4;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            transform: rotateY(180deg);
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .cod-profile {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .profile-img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            border: 3px solid #ff69b4;
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
+            display: none;
+            animation: reveal 1s ease;
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 20px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 30px rgba(255, 105, 180, 0.8);
+        }
+
+        .floating-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .icon {
+            position: absolute;
+            font-size: 20px;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 105, 180, 0.15);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #ff69b4;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: #ff69b4;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5rem; }
+            .avatar-video { width: 180px; height: 180px; }
+            .section { padding: 20px; margin: 30px 0; }
+            .cards-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loading">
+        <div class="logo">🎮 COD OLIVIA 🎮</div>
+    </div>
+
+    <div class="floating-icons" id="floatingIcons"></div>
+
+    <div class="container">
+        <div class="header">
+            <video src="oliv.mov" autoplay muted loop playsinline class="avatar-video" id="headerVideo">
+                <p>Your browser doesn't support video :(</p>
+            </video>
+            <h1>HAPPY BIRTHDAY!</h1>
+            <p>Olivia - The Ultimate COD Mobile Legend 🇵🇱</p>
+        </div>
+
+        <div class="section">
+            <h2>💌 MESSAGE FROM COMMAND</h2>
+            <div class="typewriter" id="typewriter"></div>
+        </div>
+
+        <div class="section">
+            <h2>🎖️ YOUR LEGENDARY STATS</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">2,847</div>
+                    <div>Kills</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">156</div>
+                    <div>Win Streaks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div>Headshots</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">247</div>
+                    <div>Rank</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔥 OLIVIA ACHIEVEMENTS</h2>
+            <div class="cards-grid" id="cards"></div>
+        </div>
+
+        <div class="section">
+            <h2>🏆 YOUR COD PROFILE</h2>
+            <div class="cod-profile">
+                <button class="btn" id="revealProfile">DEPLOY PROFILE</button>
+                <img src="profile.jpeg" alt="Olivia's COD Mobile Account" class="profile-img" id="profileImg">
+                <p style="margin-top: 20px; color: #ddd;">The most epic account in all of Poland! You're unstoppable! 💪</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FORCE AUTO-PLAY VIDEO
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('headerVideo');
+            video.play().catch(() => {
+                video.addEventListener('click', () => video.play());
+            });
+        });
+
+        // Loading screen
+        setTimeout(() => {
+            document.getElementById('loading').classList.add('hidden');
+        }, 2000);
+
+        // Floating icons
+        const icons = ['🔫', '💣', '🎮', '🏆', '⚡', '🔥', '💕', '🎀'];
+        function createIcon() {
+            const icon = document.createElement('div');
+            icon.className = 'icon';
+            icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+            icon.style.left = Math.random() * 100 + 'vw';
+            icon.style.animationDuration = (5 + Math.random() * 3) + 's';
+            document.getElementById('floatingIcons').appendChild(icon);
+            setTimeout(() => icon.remove(), 8000);
+        }
+        setInterval(createIcon, 300);
+
+        // Typewriter effect
+        const messages = [
+            "Olivia, you're the MVP of COD Mobile!",
+            "Your skills destroy every lobby!",
+            "Happy Birthday to the Polish Gaming Queen!",
+            "Keep dominating those battle royales!",
+            "You're unstoppable with that AK117! 🎉"
+        ];
+        let msgIndex = 0;
+        const typewriterEl = document.getElementById('typewriter');
+        
+        function typeMessage() {
+            const message = messages[msgIndex];
+            let i = 0;
+            typewriterEl.innerHTML = '';
+            
+            function type() {
+                if (i < message.length) {
+                    typewriterEl.innerHTML += message.charAt(i);
+                    i++;
+                    setTimeout(type, 100);
+                } else {
+                    setTimeout(() => {
+                        msgIndex = (msgIndex + 1) % messages.length;
+                        typeMessage();
+                    }, 2000);
+                }
+            }
+            type();
+        }
+        typeMessage();
+
+        // Achievement cards
+        const achievements = [
+            { letter: 'O', title: 'ONE SHOT', desc: 'Perfect headshot accuracy' },
+            { letter: 'L', title: 'LEGENDARY', desc: 'Top 1% globally' },
+            { letter: 'I', title: 'INVINCIBLE', desc: 'Never eliminated' },
+            { letter: 'V', title: 'VICTORY', desc: '247 wins this month' },
+            { letter: 'I', title: 'IMPRESSIVE', desc: 'Squad savior' },
+            { letter: 'A', title: 'ACE', desc: 'Master of all weapons' }
+        ];
+
+        const cardsContainer = document.getElementById('cards');
+        achievements.forEach((ach, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-face card-front">${ach.letter}</div>
+                    <div class="card-face card-back">
+                        <div>${ach.title}</div>
+                        <div style="font-size: 0.8rem; margin-top: 10px;">${ach.desc}</div>
+                    </div>
+                </div>
+            `;
+            card.addEventListener('click', () => card.classList.toggle('flipped'));
+            cardsContainer.appendChild(card);
+        });
+
+        // Reveal profile
+        document.getElementById('revealProfile').addEventListener('click', () => {
+            document.getElementById('profileImg').style.display = 'block';
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createIcon(), i * 50);
+            }
+        });
+    </script>
+</body>
+</html>
